@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "MacVideo",
+    "version": "0.0.1",
+    "description": "Flash 转换 HTML5 Video",
+    "browser_action": {
+        "default_icon": "icon64.png"
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "content_scripts": [{
+        "matches": ["http://v.youku.com/*"],
+        "js": ["content.js"]
+    }],
+    "permissions": ["tabs", "notifications", "http://*/*", "https://*/*"]
+}
