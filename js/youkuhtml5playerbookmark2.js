@@ -606,6 +606,7 @@
                         job.log("播放器初始化");
                         try {
                             site[i].call(function(_) {
+                                console.log(_.urls);
                                 job.setUrl(_.urls);
                                 job.log("获取播放源地址");
                                 job.setFlashElement(core.byId(_.flashElementId));
