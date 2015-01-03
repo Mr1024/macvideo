@@ -681,6 +681,7 @@
             reg: /youku\.com/.test(window.location.host) && _id,
             call: function(callback) {
                 return (canPlayM3U8 ? m3u8 || mp4 : mp4)(function(urls) {
+                    console.log("........");
                     console.log(urls);
                     return callback({
                         urls: urls,
