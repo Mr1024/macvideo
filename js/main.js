@@ -56,6 +56,9 @@
                 callback = data;
                 data = undefined;
             };
+            param = this.serialize(param);
+            if (param.length) param = (hasQuery ? "&" : "?") + param;
+            handler = [hasQuery || param.length ? "&" : "?", handler || "callback", "=", back].join("");
             window[cache] = function() {
                 callback && callback.apply(this, arguments);
                 try {
@@ -64,7 +67,7 @@
                 delete window[cache];
             };
             document.body.appendChild(script);
-            script.src = url + cache
+            script.src = url + param + handler;
         },
         initvideo: function(target, urlObj) {
             target.src = '/player/getM3U8/vid/215770447/type/hd2/ts/1420357160/v.m3u8';
