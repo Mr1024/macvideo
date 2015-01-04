@@ -40,6 +40,7 @@
         var urlObj = {};
         if (!!videoId) {
             var videoObj = document.getElementById("movie_player");
+            console.log(videoObj);
             if (macvideo.canPlayM3U8) {
                 urlObj = {
                     "标清": "/player/getM3U8/vid/" + videoId + "/type/flv/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8",
