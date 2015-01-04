@@ -21,7 +21,7 @@
         jsonp: function(url, callback, handler) {
             var script = document.createElement("script");
             var cache = handler || "mavvideo" + (new Date).getTime() + Math.random().toString().replace(".", "");
-            window[back] = function() {
+            window[cache] = function() {
                 callback && callback.apply(this, arguments);
                 try {
                     script.parentNode.removeChild(script);
