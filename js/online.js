@@ -3,19 +3,19 @@
     var i = function(k) {
         return c[k];
     };
-    var r = function(k) {
+    var require = function(k) {
         if (!c[k]) {
-            var m = {
+            var module = {
                 exports: {}
             };
             try {
-                f[k].call(m.exports, m, m.exports, r, i)
+                f[k].call(module.exports, module, module.exports, require, i)
             } catch (e) {};
-            c[k] = m.exports;
+            c[k] = module.exports;
         }
         return c[k];
     };
-    return r('a');
+    return require('a');
 })({
     a: function(module, exports, require, include) {
         var _ = require("A");
