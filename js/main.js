@@ -25,14 +25,14 @@
                 callback && callback.apply(this, arguments);
                 try {
                     script.parentNode.removeChild(script);
-                }
+                } catch (e) {}
                 delete window[cache];
             };
             document.body.appendChild(script);
             script.src = url + cache
         },
-        initvideo:function(target,urlObj){
-            target.src=urlobj[0];
+        initvideo: function(target, urlObj) {
+            target.src = urlobj[0];
         }
     };
     macvideo.on('v.youku.com', function() {
@@ -46,7 +46,7 @@
                     "高清": "/player/getM3U8/vid/" + videoId + "/type/mp4/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8",
                     "超清": "/player/getM3U8/vid/" + videoId + "/type/hd2/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8"
                 };
-                initvideo.initvideo(videoObj,urlobj);
+                initvideo.initvideo(videoObj, urlobj);
             } else {
                 function getFileIDMixString(seed) {
                     var source = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/\\:._-1234567890".split(""),
@@ -82,7 +82,7 @@
                         urlobj = {
                             "高清": param[0]["server"]
                         }
-                        initvideo.initvideo(videoObj,urlobj);
+                        initvideo.initvideo(videoObj, urlobj);
                     })
                 })
             }
