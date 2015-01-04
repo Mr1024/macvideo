@@ -32,7 +32,7 @@
             script.src = url + cache
         },
         initvideo: function(target, urlObj) {
-            target.src = urlObj['超清'];
+            target.src = '/player/getM3U8/vid/215770447/type/hd2/ts/1420357160/v.m3u8';
         }
     };
     macvideo.on('v.youku.com', function() {
