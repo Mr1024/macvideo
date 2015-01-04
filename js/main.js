@@ -47,7 +47,7 @@
                     "高清": "/player/getM3U8/vid/" + videoId + "/type/mp4/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8",
                     "超清": "/player/getM3U8/vid/" + videoId + "/type/hd2/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8"
                 };
-                initvideo.initvideo(videoObj, urlobj);
+                macvideo.initvideo(videoObj, urlobj);
             } else {
                 function getFileIDMixString(seed) {
                     var source = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/\\:._-1234567890".split(""),
@@ -83,11 +83,11 @@
                         urlobj = {
                             "高清": param[0]["server"]
                         }
-                        //initvideo.initvideo(videoObj, urlobj);
+                        //macvideo.initvideo(videoObj, urlobj);
                     })
                 })
             }
-            initvideo.initvideo(videoObj, urlobj);
+            macvideo.initvideo(videoObj, urlobj);
         }
     });
 })(window);
