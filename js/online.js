@@ -1,6 +1,6 @@
 (function(f) {
     var c = {};
-    var i = function(k) {
+    var include = function(k) {
         return c[k];
     };
     var require = function(k) {
@@ -9,7 +9,7 @@
                 exports: {}
             };
             try {
-                f[k].call(module.exports, module, module.exports, require, i)
+                f[k].call(module.exports, module, module.exports, require, include)
             } catch (e) {};
             c[k] = module.exports;
         }
