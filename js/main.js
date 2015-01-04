@@ -18,9 +18,44 @@
                 callback.call(this);
             }
         },
-        jsonp: function(url, callback, handler) {
+        each: function(obj, callback) {
+            var value,
+                i = 0,
+                length = obj.length;
+            if (Object.prototype.toString.call(obj) === '[object Array]') {
+                for (; i < length; i++) {
+                    value = callback.call(obj[i], i, obj[i]);
+                    if (value === false) {
+                        break;
+                    }
+                }
+            } else {
+                for (i in obj) {
+                    value = callback.call(obj[i], i, obj[i]);
+                    if (value === false) {
+                        break;
+                    }
+                }
+            }
+            return obj;
+        },
+        serialize: function(query) {
+            var arr = [];
+            this.each(query, function(value, key) {
+                    value !== undefined && arr.push(encodeURIComponent(key) + "=" + encodeURIComponent(value);
+                    });
+                return arr.join("&")
+            }
+        },
+        jsonp: function(url, data, callback, handler) {
             var script = document.createElement("script");
-            var cache = handler || "mavvideo" + (new Date).getTime() + Math.random().toString().replace(".", "");
+            var cache = handler || "mavvideo" + +(new Date) + Math.random().toString().replace(".", "");
+            var hasQuery = url.indexOf("?") >= 0;
+            if (Object.prototype.toString.call(data) === '[object Function]') {
+                handler = handler || callback;
+                callback = data;
+                data = undefined;
+            };
             window[cache] = function() {
                 callback && callback.apply(this, arguments);
                 try {
@@ -37,6 +72,13 @@
     };
     macvideo.on('v.youku.com', function() {
         var videoId = window.videoId;
+        var mk_a3 = "b4et";
+        var mk_a4 = "boa4";
+        var userCache_a1 = "4";
+        var userCache_a2 = "1";
+        var rs;
+        var sid;
+        var token;
         var urlObj = {};
         if (!!videoId) {
             var videoObj = document.getElementById("movie_player");
@@ -81,9 +123,9 @@
                         st = param.data[0]["segs"]["3gphd"][0]["seconds"];
                     macvideo.jsonp("http://f.youku.com/player/getFlvPath/sid/" + sid + "_00/st/mp4/fileid/" + fileid + "?K=" + k + "&hd=1&myp=0&ts=1156&ypp=0&ymovie=1&callback=", function(param) {
                         urlobj = {
-                            "高清": param[0]["server"]
-                        }
-                        //macvideo.initvideo(videoObj, urlObj);
+                                "高清": param[0]["server"]
+                            }
+                            //macvideo.initvideo(videoObj, urlObj);
                     })
                 })
             }
