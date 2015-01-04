@@ -32,7 +32,7 @@
             script.src = url + cache
         },
         initvideo: function(target, urlObj) {
-            target.src = urlobj[0];
+            target.src = urlObj[0];
         }
     };
     macvideo.on('v.youku.com', function() {
