@@ -20,7 +20,7 @@
     a: function(module, exports, require, include) {
         var _ = require("A");
         var loader = require("b");
-        _.log("&#x52A0;&#x8F7D;&#x5988;&#x5988;&#x8BA1;&#x5212;&#x4E2D;...");
+        _.log("加载妈妈计划中...");
 
         function t(init, reg, fid) {
             return {
@@ -50,7 +50,7 @@
             noop: {
                 reg: true,
                 call: function() {
-                    _.log("&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x4E0D;&#x5728;&#x5988;&#x5988;&#x8BA1;&#x5212;&#x7684;&#x6D89;&#x53CA;&#x8303;&#x56F4;&#x4E2D;");
+                    _.log("这个页面不在妈妈计划的涉及范围中");
                     setTimeout(function() {
                         _.rlog()
                     }, 5e3)
@@ -283,7 +283,7 @@
             var style = ["", "width:" + width + "px", "height:" + height + "px", "position:" + positionType, "margin:" + margin, "display:" + display, "margin:0", "padding:0", "border:0", "border-radius:1px", "cursor:pointer", "background:-webkit-linear-gradient(top, rgba(240,240,240,1)0%,rgba(220,220,220,1)100%)", ""];
             flashBlocks[index] = flash;
             var placeHolder = document.createElement("div");
-            placeHolder.setAttribute("title", "&#x70B9;&#x6211;&#x8FD8;&#x539F;Flash");
+            placeHolder.setAttribute("title", "点我还原Flash");
             placeHolder.setAttribute("data-flash-index", "" + index);
             flash.parentNode.insertBefore(placeHolder, flash);
             flash.parentNode.removeChild(flash);
@@ -319,7 +319,7 @@
         var _ = require("A");
         module.exports = [function(callback) {
             callback({
-                "&#x9AD8;&#x6E05;": window.openCourse.getCurrentMovie().appsrc
+                "高清": window.openCourse.getCurrentMovie().appsrc
             })
         }, /open\.163\.com/.test(window.location.host), "FPlayer"]
     },
@@ -528,9 +528,9 @@
                         var ep = encodeURIComponent(D(E(F(mk_a4 + "poz" + userCache_a2, [19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26]).toString(), sid + "_" + _id + "_" + token)));
                         var oip = a.ip;
                         callback({
-                            "YOUKU&#x6807;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=flv&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
-                            "YOUKU&#x9AD8;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=mp4&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
-                            "YOUKU&#x8D85;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=hd2&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip
+                            "YOUKU标清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=flv&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
+                            "YOUKU高清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=mp4&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
+                            "YOUKU超清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=hd2&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip
                         })
                     } else {
                         var t = new T(a);
@@ -556,10 +556,10 @@
             function tudou(vid, callback, commentInfo) {
                 if (_.canPlayM3U8) {
                     callback({
-                        "TUDOU&#x9AD8;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=3",
-                        "TUDOU&#x8D85;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=4",
-                        "TUDOU&#x539F;&#x753B;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=5",
-                        "TUDOU&#x6807;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=2"
+                        "TUDOU高清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=3",
+                        "TUDOU超清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=4",
+                        "TUDOU原画": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=5",
+                        "TUDOU标清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + vid + "&st=2"
                     }, commentInfo)
                 } else {
                     _.jsonp("http://vr.tudou.com/v2proxy/v2.js?", {
@@ -597,7 +597,7 @@
                     platForm: "h5"
                 }, window.weorjjigh(vinfo.tvId)), function(param) {
                     callback({
-                        "&#x9AD8;&#x6E05;": param.data.m3u
+                        "高清": param.data.m3u
                     })
                 })
             })
@@ -625,7 +625,7 @@
             }, function(param) {
                 console.log(param);
                 callback({
-                    "&#x9AD8;&#x6E05;": param.vd.vi[0].url
+                    "高清": param.vd.vi[0].url
                 })
             })
         }, /v\.qq\.com/.test(window.location.host), "mod_player"]
@@ -675,7 +675,7 @@
                             url = param.highVid
                     }
                     callback({
-                        "&#x9AD8;&#x6E05;": url.replace(/ipad\d+\_/, "ipad" + vid + "_") + "&uid=" + uid + "&ver=" + param.quality + "&prod=h5&pt=2&pg=1&ch=" + param.cid
+                        "高清": url.replace(/ipad\d+\_/, "ipad" + vid + "_") + "&uid=" + uid + "&ver=" + param.quality + "&prod=h5&pt=2&pg=1&ch=" + param.cid
                     })
                 })
             }
@@ -688,7 +688,7 @@
                     partner: 1
                 }, function(param) {
                     callback({
-                        "&#x9AD8;&#x6E05;": param.data.url_high_mp4
+                        "高清": param.data.url_high_mp4
                     })
                 })
             }
@@ -704,7 +704,7 @@
                 if (vid) {
                     vid = vid[1];
                     callback({
-                        "&#x9AD8;&#x6E05;": "http://vxml.56.com/m3u8/" + vid + "/"
+                        "高清": "http://vxml.56.com/m3u8/" + vid + "/"
                     })
                 }
             } else {
@@ -761,13 +761,13 @@
                     var type = item.vtype;
                     switch (item.vtype) {
                         case "9":
-                            type = "æ ‡æ¸…";
+                            type = "标清";
                             break;
                         case "13":
-                            type = "é«˜æ¸…";
+                            type = "高清";
                             break;
                         case "21":
-                            type = "è¶…æ¸…";
+                            type = "超清";
                             break
                     }
                     i++;
@@ -794,23 +794,23 @@
             var youkuCode = window.itemData && window.itemData.vcode;
             var m3u8 = function(callback) {
                 var urls = {
-                    "&#x6807;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=2",
-                    "&#x9AD8;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=3",
-                    "&#x8D85;&#x6E05;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=4",
-                    "&#x539F;&#x753B;": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=5"
+                    "标清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=2",
+                    "高清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=3",
+                    "超清": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=4",
+                    "原画": "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=5"
                 };
                 var _s;
                 if (window.itemData && window.itemData.segs) {
                     urls = {};
                     _s = JSON.parse(window.itemData.segs);
-                    if (_s[2]) urls["&#x6807;&#x6E05;"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=2";
-                    if (_s[3]) urls["&#x9AD8;&#x6E05;"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=3";
-                    if (_s[4]) urls["&#x8D85;&#x6E05;"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=4";
-                    if (_s[5]) urls["&#x539F;&#x753B;"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=5"
+                    if (_s[2]) urls["标清"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=2";
+                    if (_s[3]) urls["高清"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=3";
+                    if (_s[4]) urls["超清"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=4";
+                    if (_s[5]) urls["原画"] = "http://vr.tudou.com/v2proxy/v2.m3u8?it=" + _id + "&st=5"
                 }
                 return !youkuCode ? callback(urls) : callback({
-                    "&#x6807;&#x6E05;": "http://v.youku.com/player/getM3U8/vid/" + youkuCode + "/type/flv/ts/" + (new Date).getTime().toString().substring(0, 10) + "/sc/2/useKeyframe/0/v.m3u8",
-                    "&#x539F;&#x753B;": "http://v.youku.com/player/getM3U8/vid/" + youkuCode + "/type/hd2/ts/" + (new Date).getTime().toString().substring(0, 10) + "/sc/2/useKeyframe/0/v.m3u8"
+                    "标清": "http://v.youku.com/player/getM3U8/vid/" + youkuCode + "/type/flv/ts/" + (new Date).getTime().toString().substring(0, 10) + "/sc/2/useKeyframe/0/v.m3u8",
+                    "原画": "http://v.youku.com/player/getM3U8/vid/" + youkuCode + "/type/hd2/ts/" + (new Date).getTime().toString().substring(0, 10) + "/sc/2/useKeyframe/0/v.m3u8"
                 })
             };
             var mp4 = function(callback) {
@@ -833,7 +833,7 @@
                         _: +(new Date).getTime().toString()
                     }, function(param) {
                         return callback({
-                            "&#x6807;&#x6E05;": param.files["3gphd"].segs[0].url
+                            "标清": param.files["3gphd"].segs[0].url
                         })
                     })
                 }
@@ -1037,14 +1037,14 @@
                     var ep = encodeURIComponent(D(E(F(mk_a4 + "poz" + userCache_a2, [19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26]).toString(), sid + "_" + _id + "_" + token)));
                     var oip = a.ip;
                     callback({
-                        "&#x6807;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=flv&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
-                        "&#x9AD8;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=mp4&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
-                        "&#x8D85;&#x6E05;": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=hd2&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip
+                        "标清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=flv&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
+                        "高清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=mp4&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip,
+                        "超清": "http://pl.youku.com/playlist/m3u8?vid=" + _id + "&type=hd2&ctype=12&keyframe=1&ep=" + ep + "&sid=" + sid + "&token=" + token + "&ev=1&oip=" + oip
                     })
                 } else {
                     var t = new T(a);
                     callback({
-                        "&#x6807;&#x6E05;": t._videoSegsDic["3gphd"][0].src
+                        "标清": t._videoSegsDic["3gphd"][0].src
                     })
                 }
             }, "__callback")
