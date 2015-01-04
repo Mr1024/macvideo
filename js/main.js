@@ -32,7 +32,7 @@
             script.src = url + cache
         },
         initvideo: function(target, urlObj) {
-            target.src = urlObj[0];
+            target.src = urlObj['超清'];
         }
     };
     macvideo.on('v.youku.com', function() {
