@@ -83,10 +83,11 @@
                         urlobj = {
                             "高清": param[0]["server"]
                         }
-                        initvideo.initvideo(videoObj, urlobj);
+                        //initvideo.initvideo(videoObj, urlobj);
                     })
                 })
             }
+            initvideo.initvideo(videoObj, urlobj);
         }
     });
 })(window);
