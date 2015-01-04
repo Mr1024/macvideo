@@ -13,7 +13,7 @@
             return pattern;
         },
         on: function(reg, callback) {
-            var reg = convertPatternToReg(reg);
+            var reg = this.convertPatternToReg(reg);
             if (reg.test(window.location.host)) {
                 callback.call(this);
             }
