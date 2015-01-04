@@ -41,7 +41,7 @@
         if (!!videoId) {
             var videoObj = document.getElementById("movie_player");
             console.log(videoObj);
-            if (macvideo.canPlayM3U8) {
+            if (!macvideo.canPlayM3U8) {
                 urlObj = {
                     "标清": "/player/getM3U8/vid/" + videoId + "/type/flv/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8",
                     "高清": "/player/getM3U8/vid/" + videoId + "/type/mp4/ts/" + (((new Date).getTime() / 1e3).toString() | 0) + "/v.m3u8",
@@ -87,7 +87,6 @@
                     })
                 })
             }
-            macvideo.initvideo(videoObj, urlobj);
         }
     });
 })(window);
