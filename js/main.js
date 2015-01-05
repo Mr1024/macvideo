@@ -55,7 +55,7 @@
                 callback = data;
                 data = undefined;
             };
-            param = this.serialize(param);
+            param = this.serialize(data);
             if (param.length) param = (hasQuery ? "&" : "?") + param;
             handler = [hasQuery || param.length ? "&" : "?", handler || "callback", "=", cache].join("");
             window[cache] = function() {
