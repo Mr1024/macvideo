@@ -69,7 +69,7 @@
             script.src = url + param + handler;
         },
         initvideo: function(target, urlObj) {
-            target.src = '/player/getM3U8/vid/215770447/type/hd2/ts/1420357160/v.m3u8';
+            target.src = urlObj;
         }
     };
     macvideo.on('v.youku.com', function() {
