@@ -287,6 +287,7 @@
                         "标清": t._videoSegsDic["3gphd"][0].src
                     };
                 }
+                console.log(urlObj);
                 macvideo.initvideo(videoObj, urlObj["标清"])
             }, "__callback");
         }
