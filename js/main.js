@@ -42,10 +42,9 @@
         serialize: function(query) {
             var arr = [];
             this.each(query, function(value, key) {
-                    value !== undefined && arr.push(encodeURIComponent(key) + "=" + encodeURIComponent(value);
-                    });
-                return arr.join("&")
-            }
+                value !== undefined && arr.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
+            });
+            return arr.join("&");
         },
         jsonp: function(url, data, callback, handler) {
             var script = document.createElement("script");
