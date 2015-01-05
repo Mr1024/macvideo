@@ -266,7 +266,7 @@
         if (!!videoId) {
             var videoObj = document.getElementById("movie_player");
             console.log(videoObj);
-            macvideo.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/" + videoId + "/Pf/4/ctype/12/ev/1", function(param) {
+            macvideo.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/" + videoId + "/Pf/4/ctype/12/ev/1", {},function(param) {
                 rs = param;
                 var a = param.data[0],
                     c = E(F(mk_a3 + "o0b" + userCache_a1, [19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26]).toString(), na(a.ep));
