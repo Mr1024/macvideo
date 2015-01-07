@@ -1,17 +1,48 @@
 <!doctype html>
 <html lanch="zh-cmn-Hans">
+
 <head>
-	<meta charset="utf-8">
-	<title>视频</title>
-	<link href="css/font-awesome.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>视频</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/mavvideo.css" rel="stylesheet">
 </head>
+
 <body>
-	<div class="videobox">
-		<video src="http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm" controls></video>
-		<div class="controlbox">
-			<a class="switchplaybtn icon-play"></a>
-			<span class="time">11:00</span>
-		</div>
-	</div>
+    <div class="videobox">
+        <video src="http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm" controls></video>
+        <div class="controlbox">
+            <a class="switchplaybtn icon-play"></a>
+            <span class="time">11:00</span>
+            <div class="progressbarbox">
+                <div class="cacheprogress">
+                </div>
+                <div class="playgrogress">
+                    <a class="scrollbtn" href="javascript:void(0)"></a>
+                </div>
+            </div>
+            <span class="totaltime">11:00</span>
+            <div class="mutebox">
+                <a class="mutebtn icon-volume-up" href="javascript:void(0)"></a>
+                <div class="volumeprogressbox">
+                    <div class="volumebox">
+                        <div class="volumesel">
+                        	<a href="javascript:void(0)" class="volumbtn"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="imagequalitybox">
+            	<a href="javascript:void(0)" class="currentquality">高清</a>
+            	<ul>
+            		<li>普清</li>
+            		<li>高清</li>
+            		<li>超清</li>
+            	</ul>
+            </div>
+            <a href="javscript:void(0)" class="icon-fullscreen"></a>
+        </div>
+    </div>
 </body>
+
 </html>
