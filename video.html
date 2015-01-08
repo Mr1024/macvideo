@@ -12,7 +12,7 @@
     <div class="videobox">
         <video src="http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm" controls></video>
         <div class="controlbox">
-            <a class="switchplaybtn icon-play"></a>
+            <a id="switchplaybtn" class="icon-play"></a>
             <span class="time">11:00</span>
             <div class="progressbarbox">
                 <div class="cacheprogress">
@@ -27,22 +27,64 @@
                 <div class="volumeprogressbox">
                     <div class="volumebox">
                         <div class="volumesel">
-                        	<a href="javascript:void(0)" class="volumbtn"></a>
+                            <a href="javascript:void(0)" class="volumbtn"></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="imagequalitybox">
-            	<a href="javascript:void(0)" class="currentquality">高清</a>
-            	<ul>
-            		<li>普清</li>
-            		<li>高清</li>
-            		<li>超清</li>
-            	</ul>
+                <a href="javascript:void(0)" class="currentquality">高清</a>
+                <ul>
+                    <li>普清</li>
+                    <li>高清</li>
+                    <li>超清</li>
+                </ul>
             </div>
-            <a href="javscript:void(0)" class="icon-fullscreen"></a>
+            <a href="javscript:void(0)" id="swfullscreen" class="icon-fullscreen"></a>
         </div>
     </div>
+    <script>
+    var $switchplaybtn = document.getElementById("switchplaybtn");
+    var $video = document.getElementsByTagName("video")[0];
+    var $mutebox = document.getElementsByClassName("mutebox")[0];
+    var $volumeprogressbox = document.getElementsByClassName("volumeprogressbox")[0];
+    var $imagequalitybox = document.getElementsByClassName("imagequalitybox")[0];
+    var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
+    var $switchfullscreen = document.getElementById("swfullscreen");
+    var tt= document.getElementsByClassName(".videobox")[0];
+    $switchplaybtn.onclick = function() {
+        var playstatus = this.className;
+        if (playstatus == "icon-play") {
+            $switchplaybtn.className = "icon-pause";
+            $video.play();
+        } else {
+            $switchplaybtn.className = "icon-play";
+            $video.pause();
+        }
+    };
+    $switchfullscreen.onclick = function() {
+        var fullscreenstatus = this.className;
+        if (fullscreenstatus == "icon-fullscreen") {
+            this.className = "icon-resize-small";
+            //$video.webkitRequestFullScreen();
+            tt.webkitCancelFullScreen()
+        } else {
+            this.className = "icon-fullscreen";
+        }
+    };
+    $mutebox.onmouseover = function() {
+        $volumeprogressbox.style.display = "block";
+    }
+    $mutebox.onmouseout = function() {
+        $volumeprogressbox.style.display = "none";
+    }
+    $imagequalitybox.onmouseover = function() {
+        $qualityselectbox.style.display = "block";
+    }
+    $imagequalitybox.onmouseout = function() {
+        $qualityselectbox.style.display = "none";
+    }
+    </script>
 </body>
 
 </html>
