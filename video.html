@@ -9,8 +9,42 @@
 </head>
 
 <body>
+    <!-- <div class="videobox">
+        <video src="http://124.239.198.208/d2fd8e4800000000-1421051408-992946973/data9/newflv.sohu.ccgslb.net/sohu/s26h23eab6/78/134/C9M95lfrEWnhsmVjLlGeeF.mp4?key=3cmEXv2aQOTdrducF8Tn-Rp6eOmBmzDX&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2191544&prod=h5&eye=0" controls></video>
+        <div class="controlbox">
+            <a id="switchplaybtn" class="icon-play"></a>
+            <span class="time">11:00</span>
+            <div class="progressbarbox">
+                <div class="cacheprogress">
+                </div>
+                <div class="playgrogress">
+                    <a class="scrollbtn" href="javascript:void(0)"></a>
+                </div>
+            </div>
+            <span class="totaltime">11:00</span>
+            <div class="mutebox">
+                <a class="mutebtn icon-volume-up" href="javascript:void(0)"></a>
+                <div class="volumeprogressbox">
+                    <div class="volumebox">
+                        <div class="volumesel">
+                            <a href="javascript:void(0)" class="volumbtn"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="imagequalitybox">
+                <a href="javascript:void(0)" class="currentquality">高清</a>
+                <ul>
+                    <li>普清</li>
+                    <li>高清</li>
+                    <li>超清</li>
+                </ul>
+            </div>
+            <a href="javscript:void(0)" id="swfullscreen" class="icon-fullscreen"></a>
+        </div>
+    </div> -->
     <div class="videobox">
-        <video src="http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm" controls></video>
+        <video src="http://124.239.198.208/d2fd8e4800000000-1421051408-992946973/data9/newflv.sohu.ccgslb.net/sohu/s26h23eab6/78/134/C9M95lfrEWnhsmVjLlGeeF.mp4?key=3cmEXv2aQOTdrducF8Tn-Rp6eOmBmzDX&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2191544&prod=h5&eye=0" controls></video>
         <div class="controlbox">
             <a id="switchplaybtn" class="icon-play"></a>
             <span class="time">11:00</span>
@@ -51,7 +85,7 @@
     var $imagequalitybox = document.getElementsByClassName("imagequalitybox")[0];
     var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
     var $switchfullscreen = document.getElementById("swfullscreen");
-    var tt= document.getElementsByClassName(".videobox")[0];
+    var $tt= document.getElementsByClassName("videobox")[0];
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -66,8 +100,8 @@
         var fullscreenstatus = this.className;
         if (fullscreenstatus == "icon-fullscreen") {
             this.className = "icon-resize-small";
-            //$video.webkitRequestFullScreen();
-            tt.webkitCancelFullScreen()
+            $tt.webkitRequestFullScreen();
+            //tt.webkitCancelFullScreen()
         } else {
             this.className = "icon-fullscreen";
         }
