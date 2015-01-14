@@ -73,11 +73,10 @@
         var fullscreenstatus = this.className;
         if (fullscreenstatus == "icon-fullscreen") {
             this.className = "icon-resize-small";
-            //$video.webkitRequestFullScreen();
             $tt.webkitRequestFullScreen();
-            //tt.webkitCancelFullScreen()
         } else {
             this.className = "icon-fullscreen";
+            document.webkitCancelFullScreen();
         }
     };
     $mutebox.onmouseover = function() {
