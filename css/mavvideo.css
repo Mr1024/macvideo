@@ -8,9 +8,16 @@ body,div,h1,h2,h3,ul,li,ol,table,tr,td{
 	width:980px;
 	position: relative;
 }
-video{
-	width:100%;
+.videobox:-webkit-full-screen{
 	height:100%;
+	width:100%;
+	position: fixed;
+	top:0;
+	left:0;
+}
+video{
+	height:100%;
+	width:100%;
 }
 .controlbox a{
 	color:#fff;
@@ -29,6 +36,7 @@ video{
 	border-radius:25px;
 	color:#fff;
 	padding:0 2% 0 3%;
+	max-width: 600px;
 }
 #switchplaybtn{
 	display: inline-block;
