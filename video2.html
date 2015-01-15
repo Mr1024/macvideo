@@ -58,7 +58,8 @@
     var $imagequalitybox = document.getElementsByClassName("imagequalitybox")[0];
     var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
     var $switchfullscreen = document.getElementById("swfullscreen");
-    var $tt = document.getElementById("videobox");
+    var $videobox = document.getElementById("videobox");
+    var $controlbox= $videobox.getElementsByClassName("controlbox")[0];
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -73,7 +74,7 @@
         var fullscreenstatus = this.className;
         if (fullscreenstatus == "icon-fullscreen") {
             this.className = "icon-resize-small";
-            $tt.webkitRequestFullScreen();
+            $videobox.webkitRequestFullScreen();
         } else {
             this.className = "icon-fullscreen";
             document.webkitCancelFullScreen();
@@ -91,6 +92,22 @@
     $imagequalitybox.onmouseout = function() {
         $qualityselectbox.style.display = "none";
     }
+    $video.addEventListener("loadedmetadata",function(){
+    	var duration=$video.duration;
+    	var  minute=Math.floor(duration/60);
+    	var second= Math.floor(duration%60);
+    	var $totaltime=$videobox.getElementsByClassName("totaltime")[0];
+    	console.log($totaltime);
+    	$totaltime.innerHTML=minute+":"+second;
+    	$controlbox.style.visibility="visible";
+    },false);
+    $video.addEventListener("timeupdate", function () { 
+            var currentTime = $video.currentTime;
+            var  minute=Math.floor(currentTime/60);
+    		var second= Math.floor(currentTime%60);
+    		var $currentTime= $controlbox.getElementsByClassName("time")[0];
+    		$currentTime.innerHTML=minute+":"+second;
+          }, false);
     </script>
 </body>
 
