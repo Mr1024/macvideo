@@ -57,6 +57,7 @@ video {
     color: #fff;
     display: -webkit-box;
     display: box;
+    visibility: hidden;
 }
 .leftbox {
     width: 130px;
