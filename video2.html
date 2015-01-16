@@ -15,7 +15,7 @@
         <div class="controlbox">
             <div class="leftbox">
                 <a id="switchplaybtn" class="icon-play"></a>
-                <span class="time">11:00</span>
+                <span class="time">00:00</span>
             </div>
             <div class="midbox">
                 <div class="progressbarbox">
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="rightbox">
-                <span class="totaltime">11:00</span>
+                <span class="totaltime">00:00</span>
                 <div class="mutebox">
                     <a class="mutebtn icon-volume-up" href="javascript:void(0)"></a>
                     <div class="volumeprogressbox">
@@ -59,7 +59,9 @@
     var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
     var $switchfullscreen = document.getElementById("swfullscreen");
     var $videobox = document.getElementById("videobox");
-    var $controlbox= $videobox.getElementsByClassName("controlbox")[0];
+    var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
+    var $playgrogress =$controlbox.getElementsByClassName("playgrogress")[0];
+    var duration;
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -92,22 +94,23 @@
     $imagequalitybox.onmouseout = function() {
         $qualityselectbox.style.display = "none";
     }
-    $video.addEventListener("loadedmetadata",function(){
-    	var duration=$video.duration;
-    	var  minute=Math.floor(duration/60);
-    	var second= Math.floor(duration%60);
-    	var $totaltime=$videobox.getElementsByClassName("totaltime")[0];
-    	console.log($totaltime);
-    	$totaltime.innerHTML=minute+":"+second;
-    	$controlbox.style.visibility="visible";
-    },false);
-    $video.addEventListener("timeupdate", function () { 
-            var currentTime = $video.currentTime;
-            var  minute=Math.floor(currentTime/60);
-    		var second= Math.floor(currentTime%60);
-    		var $currentTime= $controlbox.getElementsByClassName("time")[0];
-    		$currentTime.innerHTML=minute+":"+second;
-          }, false);
+    $video.addEventListener("loadedmetadata", function() {
+        duration = $video.duration;
+        var minute = Math.floor(duration / 60);
+        var second = Math.floor(duration % 60);
+        var $totaltime = $videobox.getElementsByClassName("totaltime")[0];
+        console.log($totaltime);
+        $totaltime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
+        $controlbox.style.visibility = "visible";
+    }, false);
+    $video.addEventListener("timeupdate", function() {
+        var currentTime = $video.currentTime;
+        var minute = Math.floor(currentTime / 60);
+        var second = Math.floor(currentTime % 60);
+        var $currentTime = $controlbox.getElementsByClassName("time")[0];
+        $currentTime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
+        $playgrogress.style.width=currentTime/duration*100+"%";
+    }, false);
     </script>
 </body>
 
