@@ -67,6 +67,10 @@
     var $switchfullscreen = document.getElementById("swfullscreen");
     var $videobox = document.getElementById("videobox");
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
+<<<<<<< HEAD
+=======
+    var $playgrogress =$controlbox.getElementsByClassName("playgrogress")[0];
+>>>>>>> 04157cb0c7795e47847db820afe1b2b695fa9671
     var duration;
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
@@ -105,6 +109,10 @@
         var minute = Math.floor(duration / 60);
         var second = Math.floor(duration % 60);
         var $totaltime = $videobox.getElementsByClassName("totaltime")[0];
+<<<<<<< HEAD
+=======
+        console.log($totaltime);
+>>>>>>> 04157cb0c7795e47847db820afe1b2b695fa9671
         $totaltime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
         $controlbox.style.visibility = "visible";
     }, false);
@@ -114,6 +122,7 @@
         var second = Math.floor(currentTime % 60);
         var $currentTime = $controlbox.getElementsByClassName("time")[0];
         $currentTime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
+<<<<<<< HEAD
         var playgrogress=currentTime/duration*100;
         var cacheprogress=$video.buffered.end(0)/duration*100;
         $controlbox.getElementsByClassName("cacheprogress")[0].style.width=cacheprogress+"%";
@@ -122,6 +131,10 @@
     $video.addEventListener("ended",function(){
         $switchplaybtn.className = "icon-play";
     },false);
+=======
+        $playgrogress.style.width=currentTime/duration*100+"%";
+    }, false);
+>>>>>>> 04157cb0c7795e47847db820afe1b2b695fa9671
     </script>
 </body>
 
