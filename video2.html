@@ -19,7 +19,9 @@
             </div>
             <div class="midbox">
                 <div class="progressbarbox">
-                    <div class="cacheprogress">
+                    <div class="cacheprogressbox">
+                        <div class="cacheprogress">
+                        </div>
                     </div>
                     <div class="playgrogress">
                         <a class="scrollbtn" href="javascript:void(0)"></a>
@@ -60,7 +62,7 @@
     var $switchfullscreen = document.getElementById("swfullscreen");
     var $videobox = document.getElementById("videobox");
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
-    var $playgrogress =$controlbox.getElementsByClassName("playgrogress")[0];
+    var $playgrogress = $controlbox.getElementsByClassName("playgrogress")[0];
     var duration;
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
@@ -99,7 +101,6 @@
         var minute = Math.floor(duration / 60);
         var second = Math.floor(duration % 60);
         var $totaltime = $videobox.getElementsByClassName("totaltime")[0];
-        console.log($totaltime);
         $totaltime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
         $controlbox.style.visibility = "visible";
     }, false);
@@ -109,7 +110,16 @@
         var second = Math.floor(currentTime % 60);
         var $currentTime = $controlbox.getElementsByClassName("time")[0];
         $currentTime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
-        $playgrogress.style.width=currentTime/duration*100+"%";
+        $playgrogress.style.width = currentTime / duration * 100 + "%";
+    }, false);
+    $video.addEventListener("progress", function() {
+        var timeRange = $video.buffered;
+        var rangelength = timeRange.length;
+        if (rangelength > 0) {
+            var cacheprogress = timeRange.end(rangelength - 1);
+            var $cacheprogress = $controlbox.getElementsByClassName("cacheprogress")[0];
+            $cacheprogress.style.width=cacheprogress/duration*100+"%";
+        }
     }, false);
     </script>
 </body>
