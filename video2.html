@@ -163,14 +163,9 @@
             var $cacheprogress = $controlbox.getElementsByClassName("cacheprogress")[0];
             $cacheprogress.style.width=cacheprogress/duration*100+"%";
         }
-        var playgrogress = currentTime / duration * 100;
-        var cacheprogress = $video.buffered.end(0) / duration * 100;
-        $controlbox.getElementsByClassName("cacheprogress")[0].style.width = cacheprogress + "%";
-        $controlbox.getElementsByClassName("playgrogress")[0].style.width = playgrogress + "%";
     }, false);
     $video.addEventListener("ended", function() {
         $switchplaybtn.className = "icon-play";
-        $playgrogress.style.width = currentTime / duration * 100 + "%";
     }, false);
     drag($scrollbtn, $progressbarbox, $playgrogress, function(percentage) {
         $video.currentTime = percentage * duration;
