@@ -58,19 +58,23 @@
     </div>
 
     <script>
-    var $switchplaybtn = document.getElementById("switchplaybtn");
-    var $video = document.getElementsByTagName("video")[0];
-    var $mutebox = document.getElementsByClassName("mutebox")[0];
-    var $volumeprogressbox = document.getElementsByClassName("volumeprogressbox")[0];
-    var $imagequalitybox = document.getElementsByClassName("imagequalitybox")[0];
-    var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
-    var $switchfullscreen = document.getElementById("swfullscreen");
     var $videobox = document.getElementById("videobox");
+    var $video = $videobox.getElementsByTagName("video")[0];
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
+    var $switchplaybtn = document.getElementById("switchplaybtn");
+    var $mutebox = $controlbox.getElementsByClassName("mutebox")[0];
+    var $volumeprogressbox = $controlbox.getElementsByClassName("volumeprogressbox")[0];
+    var $imagequalitybox = $controlbox.getElementsByClassName("imagequalitybox")[0];
+    var $qualityselectbox = $imagequalitybox.getElementsByTagName("ul")[0];
+    var $currentquality = $imagequalitybox.getElementsByClassName("currentquality")[0];
+    var $switchfullscreen = document.getElementById("swfullscreen");
     var $playgrogress = $controlbox.getElementsByClassName("playgrogress")[0];
     var duration;
     var $scrollbtn = $controlbox.getElementsByClassName("scrollbtn")[0];
     var $progressbarbox = $controlbox.getElementsByClassName("progressbarbox")[0];
+    var $volumebox = $controlbox.getElementsByClassName("volumebox")[0];
+    var $volumesel = $volumebox.getElementsByClassName("volumesel")[0];
+    var $volumbtn = $volumesel.getElementsByClassName("volumbtn")[0];
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -91,40 +95,53 @@
             document.webkitCancelFullScreen();
         }
     };
-    $mutebox.addEventListener("mouseover", function() {
+    var muteshowtag,
+        qualityshowtag;
+    $imagequalitybox.addEventListener("mouseenter", function() {
+        if (qualityshowtag) {
+            clearTimeout(qualityshowtag);
+        }
+        $qualityselectbox.style.display = "block";
+    }, false);
+    $imagequalitybox.addEventListener("mouseleave", function() {
+        qualityshowtag = setTimeout(function() {
+            $qualityselectbox.style.display = "none";
+        }, 1000);
+    }, false);
+    $qualityselectbox.addEventListener("mouseenter", function() {
+        if (qualityshowtag) {
+            clearTimeout(qualityshowtag);
+        }
+    }, false);
+    $qualityselectbox.addEventListener("click", function(event) {
+        var that = event.target;
+        if (that.nodeName.toLowerCase() == "li") {
+            var qulity = that.innerHTML;
+            $currentquality.innerHTML=qulity;
+            $qualityselectbox.style.display = "none";
+        }
+    }, false)
+    $mutebox.addEventListener("mouseenter", function() {
         if (muteshowtag) {
             clearTimeout(muteshowtag);
         }
         $volumeprogressbox.style.display = "block";
     }, false);
-    var muteshowtag;
-    $mutebox.addEventListener("mouseout", function() {
+    $mutebox.addEventListener("mouseleave", function() {
         muteshowtag = setTimeout(function() {
             $volumeprogressbox.style.display = "none";
         }, 1000);
     }, false);
-    $volumeprogressbox.addEventListener("mouseover", function() {
+    $volumeprogressbox.addEventListener("mouseenter", function() {
         if (muteshowtag) {
             clearTimeout(muteshowtag);
         }
     }, false);
-    $volumeprogressbox.addEventListener("mouseout", function() {
-        muteshowtag = setTimeout(function() {
-            $volumeprogressbox.style.display = "none";
-        }, 1000);
-    }, false);
-    $imagequalitybox.onmouseover = function() {
-        $qualityselectbox.style.display = "block";
-    }
-    $imagequalitybox.onmouseout = function() {
-        $qualityselectbox.style.display = "none";
-    }
     $video.addEventListener("loadedmetadata", function() {
         duration = $video.duration;
         var minute = Math.floor(duration / 60);
         var second = Math.floor(duration % 60);
         var $totaltime = $videobox.getElementsByClassName("totaltime")[0];
-        console.log($totaltime);
         $totaltime.innerHTML = (minute < 10 ? '0' + minute : minute) + ":" + (second < 10 ? '0' + second : second);
         $controlbox.style.visibility = "visible";
     }, false);
@@ -143,28 +160,41 @@
         $switchplaybtn.className = "icon-play";
         $playgrogress.style.width = currentTime / duration * 100 + "%";
     }, false);
-    drag($scrollbtn, $progressbarbox, $playgrogress, false)
+    drag($scrollbtn, $progressbarbox, $playgrogress, function(percentage) {
+        $video.currentTime = percentage * duration;
+    }, false)
+    drag($volumbtn, $volumebox, $volumesel, function(percentage) {
+        $video.volume = percentage;
+    }, true);
 
-    function drag($target, $rel, $moveTarget, v) {
-        var boxleft = $rel.getBoundingClientRect().left;
-        var boxtop = $rel.getBoundingClientRect().top;
-        console.log(boxleft);
-        var boxheight = $rel.offsetHeight;
-        var boxwidth = $rel.offsetWidth;
-        var mousetag = false;
+    function drag($target, $rel, $moveTarget, callback, v) {
+        var boxleft,
+            boxtop,
+            boxheight,
+            boxwidth,
+            mousetag = false;
         $target.addEventListener("mousedown", function() {
             mousetag = true;
+            boxleft = $rel.getBoundingClientRect().left;
+            boxtop = $rel.getBoundingClientRect().top;
+            boxheight = $rel.offsetHeight;
+            boxwidth = $rel.offsetWidth;
         }, false);
-        document.addEventListener("mousemove", function(event) {
+        $rel.addEventListener("mousemove", function(event) {
             var left = event.clientX;
             var top = event.clientY;
+            var percentage;
             if (v == true) {
-                if (mousetag && (top - boxtop) <= boxheight) {
-                    $moveTarget.style.width = (top - boxtop) / boxheight * 100 + "%";
+                if (mousetag && (top - boxtop) <= boxheight && (top - boxtop) >= 0) {
+                    percentage = (boxheight - top + boxtop) / boxheight;
+                    $moveTarget.style.height = percentage * 100 + "%";
+                    callback(percentage);
                 }
             } else {
-                if (mousetag && (left - boxleft) <= boxwidth) {
-                    $moveTarget.style.width = (left - boxleft) / boxwidth * 100 + "%";
+                if (mousetag && (left - boxleft) <= boxwidth && (left - boxleft) >= 0) {
+                    percentage = (left - boxleft) / boxwidth;
+                    $moveTarget.style.width = percentage * 100 + "%";
+                    callback(percentage);
                 }
             }
 
