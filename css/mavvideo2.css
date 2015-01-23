@@ -131,7 +131,7 @@ video {
 .volumeprogressbox {
     height: 100px;
     width: 6px;
-    padding: 5px 5px;
+    padding: 13px 5px;
     background-color: rgba(69, 68, 68, 1);
     position: absolute;
     bottom: 60px;
@@ -147,7 +147,7 @@ video {
     position: relative;
 }
 .volumesel {
-    height: 50%;
+    height: 0%;
     width: 6px;
     position: absolute;
     bottom: 0px;
@@ -157,7 +157,7 @@ video {
 }
 .volumbtn {
     position: absolute;
-    top: -5px;
+    top: -3px;
     width: 10px;
     height: 10px;
     border-radius: 50%;
