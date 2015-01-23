@@ -51,7 +51,14 @@
                 <a href="javscript:void(0)" id="swfullscreen" class="icon-fullscreen"></a>
             </div>
         </div>
+        <div class="loadingbox orbit">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
+
     <script>
     var $switchplaybtn = document.getElementById("switchplaybtn");
     var $video = document.getElementsByTagName("video")[0];
@@ -64,6 +71,8 @@
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
     var $playgrogress = $controlbox.getElementsByClassName("playgrogress")[0];
     var duration;
+    var $scrollbtn = $controlbox.getElementsByClassName("scrollbtn")[0];
+    var $progressbarbox = $controlbox.getElementsByClassName("progressbarbox")[0];
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -84,12 +93,28 @@
             document.webkitCancelFullScreen();
         }
     };
-    $mutebox.onmouseover = function() {
+    $mutebox.addEventListener("mouseover", function() {
+        if (muteshowtag) {
+            clearTimeout(muteshowtag);
+        }
         $volumeprogressbox.style.display = "block";
-    }
-    $mutebox.onmouseout = function() {
-        $volumeprogressbox.style.display = "none";
-    }
+    }, false);
+    var muteshowtag;
+    $mutebox.addEventListener("mouseout", function() {
+        muteshowtag = setTimeout(function() {
+            $volumeprogressbox.style.display = "none";
+        }, 1000);
+    }, false);
+    $volumeprogressbox.addEventListener("mouseover", function() {
+        if (muteshowtag) {
+            clearTimeout(muteshowtag);
+        }
+    }, false);
+    $volumeprogressbox.addEventListener("mouseout", function() {
+        muteshowtag = setTimeout(function() {
+            $volumeprogressbox.style.display = "none";
+        }, 1000);
+    }, false);
     $imagequalitybox.onmouseover = function() {
         $qualityselectbox.style.display = "block";
     }
@@ -120,7 +145,45 @@
             var $cacheprogress = $controlbox.getElementsByClassName("cacheprogress")[0];
             $cacheprogress.style.width=cacheprogress/duration*100+"%";
         }
+        var playgrogress = currentTime / duration * 100;
+        var cacheprogress = $video.buffered.end(0) / duration * 100;
+        $controlbox.getElementsByClassName("cacheprogress")[0].style.width = cacheprogress + "%";
+        $controlbox.getElementsByClassName("playgrogress")[0].style.width = playgrogress + "%";
     }, false);
+    $video.addEventListener("ended", function() {
+        $switchplaybtn.className = "icon-play";
+        $playgrogress.style.width = currentTime / duration * 100 + "%";
+    }, false);
+    drag($scrollbtn, $progressbarbox, $playgrogress, false)
+
+    function drag($target, $rel, $moveTarget, v) {
+        var boxleft = $rel.getBoundingClientRect().left;
+        var boxtop = $rel.getBoundingClientRect().top;
+        console.log(boxleft);
+        var boxheight = $rel.offsetHeight;
+        var boxwidth = $rel.offsetWidth;
+        var mousetag = false;
+        $target.addEventListener("mousedown", function() {
+            mousetag = true;
+        }, false);
+        document.addEventListener("mousemove", function(event) {
+            var left = event.clientX;
+            var top = event.clientY;
+            if (v == true) {
+                if (mousetag && (top - boxtop) <= boxheight) {
+                    $moveTarget.style.width = (top - boxtop) / boxheight * 100 + "%";
+                }
+            } else {
+                if (mousetag && (left - boxleft) <= boxwidth) {
+                    $moveTarget.style.width = (left - boxleft) / boxwidth * 100 + "%";
+                }
+            }
+
+        });
+        document.addEventListener("mouseup", function() {
+            mousetag = false;
+        }, false);
+    }
     </script>
 </body>
 
