@@ -193,6 +193,7 @@ video {
     font-size: 30px;
 }
 .loadingbox {
+    display: none;
     position: absolute;
     height: 60px;
     width: 60px;

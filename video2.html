@@ -61,6 +61,7 @@
 
     <script>
     var $videobox = document.getElementById("videobox");
+    var $loadingbox = $videobox.getElementsByClassName("loadingbox")[0];
     var $video = $videobox.getElementsByTagName("video")[0];
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
     var $switchplaybtn = document.getElementById("switchplaybtn");
@@ -119,7 +120,7 @@
         var that = event.target;
         if (that.nodeName.toLowerCase() == "li") {
             var qulity = that.innerHTML;
-            $currentquality.innerHTML=qulity;
+            $currentquality.innerHTML = qulity;
             $qualityselectbox.style.display = "none";
         }
     }, false)
@@ -161,9 +162,18 @@
         if (rangelength > 0) {
             var cacheprogress = timeRange.end(rangelength - 1);
             var $cacheprogress = $controlbox.getElementsByClassName("cacheprogress")[0];
-            $cacheprogress.style.width=cacheprogress/duration*100+"%";
+            $cacheprogress.style.width = cacheprogress / duration * 100 + "%";
         }
     }, false);
+    $video.addEventListener("canplay",function(){
+        $loadingbox.style.display="none";
+    },false);
+    $video.addEventListener("waiting",function(){
+        $loadingbox.style.display="block";
+    },false);
+    $video.addEventListener("seeking",function(){
+        $loadingbox.style.display="block";
+    },false);
     $video.addEventListener("ended", function() {
         $switchplaybtn.className = "icon-play";
     }, false);
@@ -173,6 +183,39 @@
     drag($volumbtn, $volumebox, $volumesel, function(percentage) {
         $video.volume = percentage;
     }, true);
+    clickMove($progressbarbox, $playgrogress,function(){
+        $video.currentTime = percentage * duration;
+    },false);
+    clickMove($volumebox, $volumesel,function(){
+        $video.volume = percentage;
+    },true);
+    function clickMove($target, $moveTarget,callback,v) {
+        var boxleft,
+            boxtop,
+            boxheight,
+            boxwidth;
+        $target.addEventListener("click", function(event) {
+            boxleft = $target.getBoundingClientRect().left;
+            boxtop = $target.getBoundingClientRect().top;
+            boxheight = $target.offsetHeight;
+            boxwidth = $target.offsetWidth;
+            var left = event.clientX;
+            var top = event.clientY;
+            if (v == true) {
+                if ((top - boxtop) <= boxheight && (top - boxtop) >= 0) {
+                    percentage = (boxheight - top + boxtop) / boxheight;
+                    $moveTarget.style.height = percentage * 100 + "%";
+                    callback(percentage);
+                }
+            } else {
+                if ((left - boxleft) <= boxwidth && (left - boxleft) >= 0) {
+                    percentage = (left - boxleft) / boxwidth;
+                    $moveTarget.style.width = percentage * 100 + "%";
+                    callback(percentage);
+                }
+            }
+        });
+    }
 
     function drag($target, $rel, $moveTarget, callback, v) {
         var boxleft,
