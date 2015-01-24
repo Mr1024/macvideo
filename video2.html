@@ -43,9 +43,9 @@
                 <div class="imagequalitybox">
                     <a href="javascript:void(0)" class="currentquality">高清</a>
                     <ul>
-                        <li>普清</li>
-                        <li>高清</li>
-                        <li>超清</li>
+                        <li qtype="3">超清</li>
+                        <li qtype="2">高清</li>
+                        <li qtype="1">标清</li>
                     </ul>
                 </div>
                 <a href="javscript:void(0)" id="swfullscreen" class="icon-fullscreen"></a>
@@ -60,6 +60,8 @@
     </div>
 
     <script>
+    var macvolume = typeof localStorage.macvolume !== undefined ? localStorage.macvolume : (localStorage.macvolume = 1);
+    var macquality = typeof localStorage.macquality !== undefined ? localStorage.macquality : (localStorage.macquality = 1);
     var $videobox = document.getElementById("videobox");
     var $loadingbox = $videobox.getElementsByClassName("loadingbox")[0];
     var $video = $videobox.getElementsByTagName("video")[0];
@@ -78,6 +80,27 @@
     var $volumebox = $controlbox.getElementsByClassName("volumebox")[0];
     var $volumesel = $volumebox.getElementsByClassName("volumesel")[0];
     var $volumbtn = $volumesel.getElementsByClassName("volumbtn")[0];
+    $video.volume = macvolume;
+    $volumesel.style.height = macvolume * 100 + "%";
+    macquality=+macquality;
+    switch (macquality) {
+        case 1:
+            $currentquality.innerHTML = "标清";
+            break;
+        case 2:
+            $currentquality.innerHTML = "高清";
+            break;
+        case 3:
+            $currentquality.innerHTML = "超清";
+            break;
+    }
+    $video.addEventListener("volumechange", function(t) {
+
+    }, false);
+    window.addEventListener("beforeunload", function(e) {
+        localStorage.macvolume = macvolume;
+        localStorage.macquality = macquality;
+    }, false);
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
@@ -122,6 +145,7 @@
             var qulity = that.innerHTML;
             $currentquality.innerHTML = qulity;
             $qualityselectbox.style.display = "none";
+            macquality = that.getAttribute("qtype");
         }
     }, false)
     $mutebox.addEventListener("mouseenter", function() {
@@ -165,15 +189,15 @@
             $cacheprogress.style.width = cacheprogress / duration * 100 + "%";
         }
     }, false);
-    $video.addEventListener("canplay",function(){
-        $loadingbox.style.display="none";
-    },false);
-    $video.addEventListener("waiting",function(){
-        $loadingbox.style.display="block";
-    },false);
-    $video.addEventListener("seeking",function(){
-        $loadingbox.style.display="block";
-    },false);
+    $video.addEventListener("canplay", function() {
+        $loadingbox.style.display = "none";
+    }, false);
+    $video.addEventListener("waiting", function() {
+        $loadingbox.style.display = "block";
+    }, false);
+    $video.addEventListener("seeking", function() {
+        $loadingbox.style.display = "block";
+    }, false);
     $video.addEventListener("ended", function() {
         $switchplaybtn.className = "icon-play";
     }, false);
@@ -182,14 +206,17 @@
     }, false)
     drag($volumbtn, $volumebox, $volumesel, function(percentage) {
         $video.volume = percentage;
+        macvolume = percentage;
     }, true);
-    clickMove($progressbarbox, $playgrogress,function(){
+    clickMove($progressbarbox, $playgrogress, function() {
         $video.currentTime = percentage * duration;
-    },false);
-    clickMove($volumebox, $volumesel,function(){
+    }, false);
+    clickMove($volumebox, $volumesel, function() {
         $video.volume = percentage;
-    },true);
-    function clickMove($target, $moveTarget,callback,v) {
+        macvolume = percentage;
+    }, true);
+
+    function clickMove($target, $moveTarget, callback, v) {
         var boxleft,
             boxtop,
             boxheight,
