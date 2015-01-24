@@ -82,7 +82,7 @@
     var $volumbtn = $volumesel.getElementsByClassName("volumbtn")[0];
     $video.volume = macvolume;
     $volumesel.style.height = macvolume * 100 + "%";
-    macquality=+macquality;
+    macquality = +macquality;
     switch (macquality) {
         case 1:
             $currentquality.innerHTML = "标清";
@@ -100,6 +100,11 @@
     window.addEventListener("beforeunload", function(e) {
         localStorage.macvolume = macvolume;
         localStorage.macquality = macquality;
+    }, false);
+    var tt = 1;
+    $videobox.addEventListener("keydown", function() {
+        tt += 5;
+        console.log(tt);
     }, false);
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
