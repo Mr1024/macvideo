@@ -37,6 +37,13 @@ video {
     bottom: 200px;
     right: 0;
 }
+.actioncover{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
 .controlbox a {
     color: #fff;
     text-decoration: none;

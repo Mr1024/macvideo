@@ -12,6 +12,7 @@
     <div id="videobox" tabindex="0">
         <video src="http://124.239.198.208/d2fd8e4800000000-1421051408-992946973/data9/newflv.sohu.ccgslb.net/sohu/s26h23eab6/78/134/C9M95lfrEWnhsmVjLlGeeF.mp4?key=3cmEXv2aQOTdrducF8Tn-Rp6eOmBmzDX&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2191544&prod=h5&eye=0">
         </video>
+        <div class="actioncover"></div>
         <div class="controlbox">
             <div class="leftbox">
                 <a id="switchplaybtn" class="icon-play"></a>
@@ -65,6 +66,7 @@
     var $videobox = document.getElementById("videobox");
     var $loadingbox = $videobox.getElementsByClassName("loadingbox")[0];
     var $video = $videobox.getElementsByTagName("video")[0];
+    var $actioncover = $videobox.getElementsByClassName("actioncover")[0];
     var $controlbox = $videobox.getElementsByClassName("controlbox")[0];
     var $switchplaybtn = document.getElementById("switchplaybtn");
     var $mutebox = $controlbox.getElementsByClassName("mutebox")[0];
@@ -146,26 +148,41 @@
 
     };
     $videobox.focus();
-    $switchplaybtn.onclick = function() {
-        var playstatus = this.className;
-        if (playstatus == "icon-play") {
-            $switchplaybtn.className = "icon-pause";
+    $switchplaybtn.addEventListener("click", function() {
+        if ($video.paused) {
             $video.play();
         } else {
-            $switchplaybtn.className = "icon-play";
             $video.pause();
         }
-    };
-    $switchfullscreen.onclick = function() {
-        var fullscreenstatus = this.className;
-        if (fullscreenstatus == "icon-fullscreen") {
-            this.className = "icon-resize-small";
-            $videobox.webkitRequestFullScreen();
-        } else {
-            this.className = "icon-fullscreen";
+    }, false);
+    $switchfullscreen.addEventListener("click", function() {
+        if (document.webkitIsFullScreen) {
             document.webkitCancelFullScreen();
+        } else {
+            $videobox.webkitRequestFullScreen();
         }
-    };
+    }, false);
+    $videobox.addEventListener("webkitfullscreenchange", function() {
+        if (document.webkitIsFullScreen) {
+            $switchfullscreen.className = "icon-resize-small";
+        } else {
+            $switchfullscreen.className = "icon-fullscreen";
+        }
+    }, false);
+    $actioncover.addEventListener("click", function(e) {
+        if ($video.paused) {
+            $video.play();
+        } else {
+            $video.pause();
+        }
+    }, false);
+    $actioncover.addEventListener("dblclick", function(e) {
+        if (document.webkitIsFullScreen) {
+            document.webkitCancelFullScreen();
+        } else {
+            $videobox.webkitRequestFullScreen();
+        }
+    }, false);
     var muteshowtag,
         qualityshowtag;
     $imagequalitybox.addEventListener("mouseenter", function() {
@@ -209,6 +226,12 @@
             clearTimeout(muteshowtag);
         }
     }, false);
+    $video.addEventListener("play", function() {
+        $switchplaybtn.className = "icon-pause";
+    }, false);
+    $video.addEventListener("pause", function() {
+        $switchplaybtn.className = "icon-play";
+    }, false);
     $video.addEventListener("loadedmetadata", function() {
         duration = $video.duration;
         var minute = Math.floor(duration / 60);
@@ -237,14 +260,24 @@
     $video.addEventListener("canplay", function() {
         $loadingbox.style.display = "none";
     }, false);
+    $video.addEventListener("oncanplaythrough", function() {
+        $loadingbox.style.display = "none";
+    }, false);
+    $video.addEventListener("playing", function() {
+        $loadingbox.style.display = "none";
+    }, false);
     $video.addEventListener("waiting", function() {
         $loadingbox.style.display = "block";
     }, false);
     $video.addEventListener("seeking", function() {
         $loadingbox.style.display = "block";
     }, false);
+    $video.addEventListener("seekend", function() {
+        $loadingbox.style.display = "none";
+    }, false);
     $video.addEventListener("ended", function() {
         $switchplaybtn.className = "icon-play";
+        $loadingbox.style.display = "none";
     }, false);
     drag($scrollbtn, $progressbarbox, $playgrogress, function(percentage) {
         $video.currentTime = percentage * duration;
