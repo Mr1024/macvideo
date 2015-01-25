@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="videobox">
+    <div id="videobox" tabindex="0">
         <video src="http://124.239.198.208/d2fd8e4800000000-1421051408-992946973/data9/newflv.sohu.ccgslb.net/sohu/s26h23eab6/78/134/C9M95lfrEWnhsmVjLlGeeF.mp4?key=3cmEXv2aQOTdrducF8Tn-Rp6eOmBmzDX&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2191544&prod=h5&eye=0">
         </video>
         <div class="controlbox">
@@ -94,18 +94,58 @@
             $currentquality.innerHTML = "超清";
             break;
     }
-    $video.addEventListener("volumechange", function(t) {
-
+    $video.addEventListener("volumechange", function(e) {
+        var volume = e.target.volume;
+        $volumesel.style.height = volume * 100 + "%";
     }, false);
     window.addEventListener("beforeunload", function(e) {
         localStorage.macvolume = macvolume;
         localStorage.macquality = macquality;
     }, false);
-    var tt = 1;
-    $videobox.addEventListener("keydown", function() {
-        tt += 5;
-        console.log(tt);
+    $videobox.addEventListener("focus", function() {
+        document.addEventListener("keydown", onKeyPress);
     }, false);
+    $videobox.addEventListener("blur", function() {
+        document.removeEventListener("keydown", onKeyPress);
+    }, false);
+    var onKeyPress = function(event) {
+        var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+        var currentTime = $video.currentTime,
+            volume = $video.volume;
+        switch (keyCode) {
+            case 32:
+                $switchplaybtn.click();
+                break;
+            case 37:
+                currentTime -= 5;
+                break;
+            case 38:
+                volume += 0.1;
+                break;
+            case 39:
+                currentTime += 5;
+                break;
+            case 40:
+                volume -= 0.1;
+        }
+
+        if (duration && currentTime > duration) {
+            $video.currentTime = duration;
+        } else if (currentTime < 0) {
+            $video.currentTime = 0;
+        } else {
+            $video.currentTime = currentTime;
+        }
+        if (volume > 1) {
+            $video.volume = 1
+        } else if (volume < 0) {
+            $video.volume = 0;
+        } else {
+            $video.volume = volume;
+        }
+
+    };
+    $videobox.focus();
     $switchplaybtn.onclick = function() {
         var playstatus = this.className;
         if (playstatus == "icon-play") {
