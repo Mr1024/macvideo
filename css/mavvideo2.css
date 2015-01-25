@@ -9,6 +9,7 @@ body, div, h1, h2, h3, ul, li, ol, table, tr, td {
     text-align: center;
     background-color: #000;
     outline:none;
+    -webkit-user-select: none;
 }
 video {
     width: 100%;
