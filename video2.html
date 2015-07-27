@@ -10,7 +10,7 @@
 
 <body>
     <div id="videobox" tabindex="0">
-        <video src="http://124.239.198.208/d2fd8e4800000000-1421051408-992946973/data9/newflv.sohu.ccgslb.net/sohu/s26h23eab6/78/134/C9M95lfrEWnhsmVjLlGeeF.mp4?key=3cmEXv2aQOTdrducF8Tn-Rp6eOmBmzDX&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2191544&prod=h5&eye=0">
+        <video preload="auto" src="http://121.30.193.4/7f4b945f00000000-1422238330-1846736144/data21/newflv.sohu.ccgslb.net/sohu/s26h23eab6/98/78/7CUb5IBWRYGbp8DitzOJhD.mp4?key=74CNM_NtKeXhr3GbL04GPKJVbP8w5V_X&n=1&a=1822&cip=106.120.116.151&uid=1405121609390547&plat=17&pg=1&pt=5&ch=v&vid=2213589&prod=h5&eye=0">
         </video>
         <div class="actioncover"></div>
         <div class="controlbox">
@@ -115,6 +115,11 @@
         var currentTime = $video.currentTime,
             volume = $video.volume;
         switch (keyCode) {
+            case 13:
+                if (event.shiftKey) {
+                    $switchfullscreen.click();
+                }
+                break;
             case 32:
                 $switchplaybtn.click();
                 break;
