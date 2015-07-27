@@ -1,3 +1,11 @@
 var s = document.createElement('script');
 s.setAttribute('src', 'http://mr1024.github.io/macvideo/js/main.js');
 document.body.appendChild(s);
+var flash = document.getElementById("movie_player");
+var flashParent = flash.parentNode;
+var video = document.createElement("video");
+video.style.width = "100%";
+video.style.height = "100%";
+video.id = "movie_player";
+video.controls;
+flashParent.replaceChild(video, flash);
